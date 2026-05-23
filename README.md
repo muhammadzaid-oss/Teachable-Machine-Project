@@ -1,4 +1,5 @@
 Teachable Machine: Decoupled Full-Stack AI Classification System
+
 An enterprise-grade, microservice-based vision classifier engineered to separate real-time data streaming from deep learning computational workloads. This application allows users to train functional machine learning models directly via their browser using image uploads or a live webcam feed—completely containerized and local.
 
 ✨ Features
@@ -26,7 +27,9 @@ my_teachable_machine/
 ├── main.py                   # FastAPI implementation, API routing & ML pipeline
 ├── model.pkl                 # Serialized binary containing trained model weights
 └── requirements.txt          # Unified Python ecosystem dependency matrix
+
 🚀 Getting Started
+
 Prerequisites
 Make sure you have the following software utilities installed on your host environment:
 
@@ -35,6 +38,7 @@ Docker (Desktop or Engine)
 Docker Compose
 
 🛠️ Execution & Deployment Steps
+
 Follow these basic commands in your terminal to initialize the ecosystem from the root folder:
 
 Build and Run the Containers:
@@ -51,14 +55,18 @@ Stopping the Services:
 
 Bash
 docker-compose down
+
 🧠 Technical Workflow & Guardrails
+
 1. Ingestion Pipeline & Collision Safety
 User-defined category tokens automatically trigger deterministic OS directory structures (dataset/class_name) on the backend server. To fully eliminate write state race conditions or directory index collisions, incoming image frames are stamped using automated UUIDv4 hexadecimal string encoders.
 
 2. AI Training Engine via Transfer Learning
+
 Training complex deep neural nets from scratch is resource-prohibitive on local endpoints. This design utilizes a frozen pre-trained MobileNetV3 backbone layout as a structural deep feature map extractor. Latent embedding feature vectors are piped into a lightweight multi-class linear classifier matrix head (Logistic Regression) via Scikit-Learn for instant training loops on generic compute environments.
 
 3. Real-Time Inference Tensor Pipeline
+
 Live input frames undergo strict pre-processing matrices to secure numerical mapping parity before passing into the model:
 
 Interpolation: Spatial downsizing of images arrays to static [224, 224, 3] configurations.
@@ -66,6 +74,7 @@ Interpolation: Spatial downsizing of images arrays to static [224, 224, 3] confi
 Normalization: Channel-wise mean and standard deviation array matching backbone tensor bounds.
 
 Activation: Softmax operations mapping raw multidimensional logit arrays into safe probability confidence vectors.
+
 
 4. Memory State Tracking Guardrails
 Stateless REST backends do not persist structural UI contexts natively. Application lifecycles are tracked securely via client-side st.session_state parameters. A strict execution guardrail conditionally locks testing widgets and prediction routes until at least 2 distinct valid dataset directories are populated, avoiding runtime application memory drops.

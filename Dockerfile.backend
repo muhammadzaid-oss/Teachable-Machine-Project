@@ -1,0 +1,26 @@
+# Base lightweight image for machine learning
+FROM python:3.10-slim
+
+# System dependencies setup (OpenCV aur dusri image libraries ke liye)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Requirements file copy aur install karte hain
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Baqi ka backend code container mein copy karte hain
+COPY main.py .
+
+# Dataset directory aur trained weights storage path initialize karte hain
+RUN mkdir -p dataset
+
+EXPOSE 8000
+
+# FastAPI server ko external network access ke liye host 0.0.0.0 par chalate hain
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

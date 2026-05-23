@@ -1,31 +1,65 @@
 Teachable Machine: Decoupled Full-Stack AI Classification System
-An enterprise-grade, microservice-based vision classifier engineered to separate real-time data streaming from deep learning computational workloads. This architecture ensures strict decoupling, runtime isolation, and multi-container cloud scalability.
+An enterprise-grade, microservice-based vision classifier engineered to separate real-time data streaming from deep learning computational workloads. This application allows users to train functional machine learning models directly via their browser using image uploads or a live webcam feed—completely containerized and local.
 
-🏗️ System Architecture and Layout
-Unlike traditional legacy monolithic single-script AI prototypes, this system is divided into structural microservices communicating across network boundaries via high-performance REST APIs.
+✨ Features
+Offline-First Architecture: No cloud dependencies or external API calls, ensuring complete data privacy and local execution.
 
-Frontend UI Service (Streamlit): Orchestrates real-time browser media streams, handles dynamic client-side layout states, and renders asynchronous frame metrics using clean reactive binding layers.
+Dual Data Collection: Upload custom image datasets from local storage or capture samples using a real-time webcam stream.
 
-Backend Inference Engine (FastAPI): Ingests image payloads, dynamically structures server-side dynamic directory file trees, executes model feature maps calculation, and handles real-time learning weights optimization.
+Transfer Learning Backend: Utilizes a pre-trained MobileNetV3 neural network as a deep feature extractor coupled with a Logistic Regression head for lightning-fast training.
 
-🛠️ Technology Core Infrastructure
-Network Gateway: FastAPI (Asynchronous ASGI network engine with automated OpenAPI validation schemas).
+Microservices Architecture: Frontend and backend are completely decoupled, ensuring fault containment (backend failures won't crash the user interface).
 
-Deep Learning Pipeline: PyTorch Core (Multidimensional tensor extraction, mathematical matrix formatting, and weight matrix transformations).
+Containerized Deployment: Multi-container production setup configured natively with Docker and Docker Compose.
 
-Reactive Frontend Layer: Streamlit Engine (Pythonic UI framework backed by active browser WebSocket streaming loops).
+📁 Project Directory Structure
+Plaintext
+my_teachable_machine/
+├── dataset/                  # Dynamic local storage for uploaded samples (Auto-generated)
+│   ├── cat/                  # Class folder containing UUIDv4 renamed images
+│   └── dog/                  # Class folder containing UUIDv4 renamed images
+├── __pycache__/              # Python compiled runtime cache
+├── Dockerfile.backend        # Isolated container configuration for FastAPI backend
+├── Dockerfile.frontend       # Isolated container configuration for Streamlit frontend
+├── docker-compose.yml        # Multi-container orchestration and routing topology
+├── app.py                    # Streamlit UI dashboard & session state management
+├── main.py                   # FastAPI implementation, API routing & ML pipeline
+├── model.pkl                 # Serialized binary containing trained model weights
+└── requirements.txt          # Unified Python ecosystem dependency matrix
+🚀 Getting Started
+Prerequisites
+Make sure you have the following software utilities installed on your host environment:
 
-Containerization Topology: Multi-Stage Docker and Compose Orchestration Layer.
+Docker (Desktop or Engine)
 
-⚡ Architectural Core Rules and Guardrails
-1. File-Tree Optimization and Collision Safety
-User-defined category tokens automatically trigger deterministic OS directory structures on the backend server. To fully eliminate write state race conditions or directory index collisions, incoming image frames are stamped using automated UUIDv4 hexadecimal string encoders.
+Docker Compose
 
-2. Transfer Learning Framework Strategy
-Training complex deep neural nets from scratch is resource-prohibitive on local client endpoints. This design utilizes a frozen pre-trained MobileNetV3 backbone layout as a structural deep feature map extractor. Latent embedding feature vectors are piped into a lightweight multi-class linear classifier matrix head (Logistic Regression) for instant training loops on generic compute environments.
+🛠️ Execution & Deployment Steps
+Follow these basic commands in your terminal to initialize the ecosystem from the root folder:
 
-3. Inference Matrix Routing
-Live input frames undergo strict pre-processing matrices to secure numerical mapping parity:
+Build and Run the Containers:
+
+Bash
+docker-compose up --build
+Accessing the Interfaces:
+
+Frontend UI (Streamlit): Open your web browser and navigate to http://localhost:8501
+
+Backend API Documentation (FastAPI Docs): View the interactive Swagger documentation at http://localhost:8000/docs
+
+Stopping the Services:
+
+Bash
+docker-compose down
+🧠 Technical Workflow & Guardrails
+1. Ingestion Pipeline & Collision Safety
+User-defined category tokens automatically trigger deterministic OS directory structures (dataset/class_name) on the backend server. To fully eliminate write state race conditions or directory index collisions, incoming image frames are stamped using automated UUIDv4 hexadecimal string encoders.
+
+2. AI Training Engine via Transfer Learning
+Training complex deep neural nets from scratch is resource-prohibitive on local endpoints. This design utilizes a frozen pre-trained MobileNetV3 backbone layout as a structural deep feature map extractor. Latent embedding feature vectors are piped into a lightweight multi-class linear classifier matrix head (Logistic Regression) via Scikit-Learn for instant training loops on generic compute environments.
+
+3. Real-Time Inference Tensor Pipeline
+Live input frames undergo strict pre-processing matrices to secure numerical mapping parity before passing into the model:
 
 Interpolation: Spatial downsizing of images arrays to static [224, 224, 3] configurations.
 
@@ -36,20 +70,7 @@ Activation: Softmax operations mapping raw multidimensional logit arrays into sa
 4. Memory State Tracking Guardrails
 Stateless REST backends do not persist structural UI contexts natively. Application lifecycles are tracked securely via client-side st.session_state parameters. A strict execution guardrail conditionally locks testing widgets and prediction routes until at least 2 distinct valid dataset directories are populated, avoiding runtime application memory drops.
 
-🐳 Production Container Setup and Initialization
-To run this decoupled environment without setting up manual local Python configurations, use the multi-container Docker deployment configuration. This eliminates environmental mismatch across Windows, macOS, and Linux nodes.
-
-Ensure you have Docker and Docker Compose installed on your host system, then execute the orchestration routing terminal command in your terminal:
-
-docker-compose up --build
-
-Once running, the multi-tier microservice architecture endpoints become active:
-
-Frontend UI Gateway: http://localhost:8501
-
-Interactive OpenAPI Docs: http://localhost:8000/docs
-
-🔬 Closed-Classifier and Out-of-Distribution (OOD) Analysis
+🔬 Closed-Classifier & Out-of-Distribution (OOD) Analysis
 Empirical profiling checks under an untrained input matrix (e.g., an Out-of-Distribution Human Face) expose a closed-classifier phenomenon. Because vector spaces are finite to explicitly trained clusters, structural edge distribution and deep texture similarities trigger false high-confidence predictions (e.g., mapping facial tensors to Cat Class with 89.5% confidence limits).
 
 👨‍💻 Project Reviewer Details
